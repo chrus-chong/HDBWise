@@ -1,6 +1,7 @@
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 print(getwd())
 homeTab <- tabPanel("Home",
-         includeHTML("./HDBWise/app/frontend/homepage.html"),
+         includeHTML("./homepage.html"),
          tags$style(HTML("
     /* Style for carousel images */
     .carousel-inner img {

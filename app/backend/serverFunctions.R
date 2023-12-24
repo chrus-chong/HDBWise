@@ -4,8 +4,9 @@ library(leaflet)
 library(shiny)
 
 ## Retrieve data after data cleaning operations.
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 print(getwd())
-load("./HDBWise/data cleaning/cleanedData.RData")
+load("../../data cleaning/cleanedData.RData")
 
 ## Nearby Amenities Functions
 nearbyMap <- renderLeaflet({
