@@ -1,3 +1,5 @@
+library(sf)
+
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 print(paste("wd of app.R is ", getwd()))
 source("./frontend/tabs.R")
