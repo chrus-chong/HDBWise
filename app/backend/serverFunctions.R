@@ -1,6 +1,6 @@
 library(dplyr)
-library(ggmap)
 library(leaflet)
+library(leaflet.extras)
 library(shiny)
 
 ## Retrieve data after data cleaning operations.
@@ -85,7 +85,7 @@ nearbyHandler <- function(input, output, session) {
 
 ## Price Appreciation Function
 priceAppreciationHandler <- function(input, output, session) {
-  # Generate the ggmap plot based on selected years
+  # Generate the leaflet plot based on selected years
   start <- input$startYear
   end <- input$endYear
   selected_data <- filter(grouped_hdb, saleYear >= start & saleYear <= end)
@@ -93,19 +93,19 @@ priceAppreciationHandler <- function(input, output, session) {
   selected_data <- selected_data %>%
     group_by(lat, long) %>%
     summarise(
-      price_appreciation = ((last(avg_resale_price) - first(avg_resale_price))/first(avg_resale_price))*100
+      price_appreciation = ((last(avg_resale_price) - first(avg_resale_price))/first(avg_resale_price))
     )
-  map <- get_map('Singapore', zoom = 11)
   
-  output$mapPlot <- renderPlot({
-    ggmap(map, extent = "device") +
-      stat_summary_2d(data = selected_data, aes(x = long, y = lat, 
-                                                z = price_appreciation), fun = mean, alpha = 0.6, bins = 40) +
-      scale_fill_gradient(
-        name = paste("Appreciation in price from ", start, " to ", end, " (%).", sep=""),
-        low = "green",
-        high = "red",
-        guide = guide_legend(title = paste("Appreciation in price from ", start, " to ", end, " (%).", sep=""))
+  # Create leaflet map
+  output$mapPlot <- renderLeaflet({
+    leaflet(selected_data) %>%
+      addTiles() %>%
+      addHeatmap(
+        lat = ~lat,
+        lng = ~long,
+        intensity = ~price_appreciation,
+        radius = 20,  # Adjust the radius as needed
+        blur = 10,     # Adjust the blur as needed
       )
   })
 }

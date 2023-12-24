@@ -1,3 +1,5 @@
+library(leaflet)
+
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 print(paste("wd of tabs.R is ", getwd()))
 homeTab <- tabPanel("Home",
@@ -28,18 +30,17 @@ priceAppreciationTab <- tabPanel("Price Appreciation",
          fluidPage(  
            sidebarPanel(
              # Input for start year
-             numericInput("startYear", "Start Year:", min = 1990, max = 2023, value = 1990),
+             numericInput("startYear", "Start Year:", min = 2016, max = 2023, value = 2016),
              
              # Input for end year
-             numericInput("endYear", "End Year:", min = 1990, max = 2023, value = 2023),
+             numericInput("endYear", "End Year:", min = 2016, max = 2023, value = 2023),
              
              # Button to trigger an action
              actionButton("submitBtn", "Submit")
              ),
-           
            mainPanel(
-             # Output to display the ggmap plot
-             plotOutput("mapPlot", width = "100%", height = "600px")  # Set height to "100%"
+             # Output to display the leaflet map
+             leafletOutput("mapPlot",width="100%",height="600px")
              )
            )
          )
