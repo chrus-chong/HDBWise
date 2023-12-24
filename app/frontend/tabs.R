@@ -2,6 +2,8 @@ library(leaflet)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 print(paste("wd of tabs.R is ", getwd()))
+load("../data cleaning/cleanedData.RData")
+
 homeTab <- tabPanel("Home",
          includeHTML("./frontend/homepage.html"),
          tags$style(HTML("
