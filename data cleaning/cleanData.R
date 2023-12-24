@@ -74,7 +74,7 @@ hdb$Region <- hdb_with_region$Region
 hdb$saleYear <- as.numeric(substr(hdb$month, 1, 4))
 
 
-#1: Creating df for hawkerfrom GeoJson
+#1: Creating df for hawker from GeoJson
 
 # Function to extract attributes from HTML content
 extract_attributes <- function(description) {
