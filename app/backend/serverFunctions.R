@@ -5,8 +5,8 @@ library(shiny)
 
 ## Retrieve data after data cleaning operations.
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-print(getwd())
-load("../../data cleaning/cleanedData.RData")
+print(paste("wd of serverFunctions.R is ", getwd()))
+load("../data cleaning/cleanedData.RData")
 
 ## Nearby Amenities Functions
 nearbyMap <- renderLeaflet({
