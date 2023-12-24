@@ -66,10 +66,10 @@ server <- function(input, output, session) {
   filtered_data_2 <- reactive(getFilteredDf(input, output, session))
   
   # Render map
-  output$map_2 <- neighbourhoodMap
+  createNeighbourhoodMap(input, output, session, filtered_data_2)
   
   # Render selected information table
-  output$selected_info_table <- neighbourhoodTable
+  createNeighbourhoodTable(input, output, session, filtered_data_2)
 }
 
 

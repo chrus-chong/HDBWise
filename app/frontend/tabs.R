@@ -92,7 +92,7 @@ neighbourhoodSearchTab <- tabPanel("Neighbourhood Search",
                                                                  "21 TO 25", "16 TO 20", "28 TO 30", "26 TO 30", "31 TO 33", "37 TO 39", 
                                                                  "34 TO 36", "40 TO 42", "31 TO 35", "36 TO 40", "43 TO 45", "46 TO 48", 
                                                                  "49 TO 51")),
-                                         sliderInput("sales_year", "Sales Year Range", min = 1986, max = 2023, value = c(1986, 2023), step = 1),
+                                         sliderInput("sales_year", "Sales Year Range", min = 2016, max = 2023, value = c(2016, 2023), step = 1),
                                          actionButton("search_button", "Search")
                                          ),
                                        mainPanel(

@@ -223,53 +223,61 @@ getFilteredDf <- function(input, output, session) {
   
   return(filtered_df)
 }
+createNeighbourhoodMap <- function(input, output, session, filtered_data_2) {
+  neighbourhoodMap <- renderLeaflet({
+    leaflet() %>%
+      addTiles() %>%
+      addCircleMarkers(data = filtered_data_2(),
+                       ~long, ~lat,
+                       radius = 5,
+                       color = "blue",
+                       fillOpacity = 0.8,
+                       popup = ~paste("Postal Code: ", postal, "<br>Address: ", address))
+  })
+  
+  output$map_2 <- neighbourhoodMap
+}
 
-neighbourhoodMap <- renderLeaflet({
-  leaflet() %>%
-    addTiles() %>%
-    addCircleMarkers(data = filtered_data_2(),
-                     ~long, ~lat,
-                     radius = 5,
-                     color = "blue",
-                     fillOpacity = 0.8,
-                     popup = ~paste("Postal Code: ", postal, "<br>Address: ", address))
-})
 
-neighbourhoodTable <- renderTable({
-  # Get the clicked point from the map
-  click <- input$map_2_click
+createNeighbourhoodTable <- function(input, output, session, filtered_data_2) {
+  neighbourhoodTable <- renderTable({
+    # Get the clicked point from the map
+    click <- input$map_2_click
+    
+    # If no click event, return NULL
+    if (is.null(click)) return(NULL)
+    
+    
+    # Extract the clicked coordinates and round to a certain decimal place
+    clicked_coords <- c(round(click$lat, 6), round(click$lng, 4))
+    
+    # # Find the data points within a small distance to the clicked coordinates
+    selected_data_2 <- filtered_data_2() %>%
+      filter(lat >= clicked_coords[1] - 0.000200, lat <= clicked_coords[1] + 0.000200,
+             long >= clicked_coords[2] - 0.0002, long <= clicked_coords[2] + 0.0002)
+    
+    
+    
+    # If there are no matching data points, return NULL
+    if (nrow(selected_data_2) == 0) return(NULL)
+    
+    # Create a table of selected information
+    table_data <- data.frame(
+      Town = selected_data_2$town,
+      Flat_Type = selected_data_2$flat_type,
+      Flat_Model = selected_data_2$flat_model,
+      Floor_Area_Sqm = selected_data_2$floor_area_sqm,
+      Resale_Price = selected_data_2$resale_price,
+      Street_Name = selected_data_2$street_name,
+      Block = selected_data_2$block,
+      Remaining_Lease = selected_data_2$remaining_lease,
+      Address = selected_data_2$address,
+      Sale_Year = selected_data_2$saleYear
+    )
+    
+    # Return the table data
+    table_data
+  })
   
-  # If no click event, return NULL
-  if (is.null(click)) return(NULL)
-  
-  
-  # Extract the clicked coordinates and round to a certain decimal place
-  clicked_coords <- c(round(click$lat, 6), round(click$lng, 4))
-  
-  # # Find the data points within a small distance to the clicked coordinates
-  selected_data_2 <- filtered_data_2() %>%
-    filter(lat >= clicked_coords[1] - 0.000200, lat <= clicked_coords[1] + 0.000200,
-           long >= clicked_coords[2] - 0.0002, long <= clicked_coords[2] + 0.0002)
-  
-  
-  
-  # If there are no matching data points, return NULL
-  if (nrow(selected_data_2) == 0) return(NULL)
-  
-  # Create a table of selected information
-  table_data <- data.frame(
-    Town = selected_data_2$town,
-    Flat_Type = selected_data_2$flat_type,
-    Flat_Model = selected_data_2$flat_model,
-    Floor_Area_Sqm = selected_data_2$floor_area_sqm,
-    Resale_Price = selected_data_2$resale_price,
-    Street_Name = selected_data_2$street_name,
-    Block = selected_data_2$block,
-    Remaining_Lease = selected_data_2$remaining_lease,
-    Address = selected_data_2$address,
-    Sale_Year = selected_data_2$saleYear
-  )
-  
-  # Return the table data
-  table_data
-})
+  output$selected_info_table <- neighbourhoodTable
+}
