@@ -56,8 +56,7 @@ their specific needs.
 ![neighbourhood](https://github.com/chrus-chong/HDBWise/assets/85006125/d118f154-42b9-4d13-8499-0c6077a2e56a)
 
 
-*Disclaimer: This was a group project and I do not claim credit for the following functionalities*
-- *Homepage*
-- *Property Comparison Tool*
-- *Loan and Downpayment Calculator*
-- *Neighbourhood Search Functionality*
+*Disclaimer: This was a group project and I only claim credit for the following*
+- *Contributed to data cleaning*
+- *Created functionality for Nearby Amenities Discovery*
+- *Created functionality for Price Appreciation Analysis*
