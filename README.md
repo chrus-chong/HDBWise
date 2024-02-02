@@ -22,7 +22,7 @@ richness enhances decision-making and property evaluation.
 
 *Note 1: Transaction data is stored in the ```cleanedData.Rdata``` workspace file to ease of usage. To understand the data cleaning operations that were performed, refer to ```./data cleaning/cleanData.R```.*
 
-*Note 2: There are hundreds of thousands of transactions. To ensure a smooth user experience, only transactions from 2016 onward are included by default. To perform data visualisation on all transactions from 1986 - 2023, delete ```Line 32``` from ```cleanData.R```.*
+*Note 2: HDBWise draws from almost 1,000,000 resale transactions. To ensure a smooth user experience, only transactions from 2016 onward are included by default. To perform data visualisation on all transactions from 1986 - 2023, delete ```Line 32``` from ```cleanData.R```.*
 
 ### HDBWise Functionalities
 1. Nearby Amenities Discovery: By simply inputting a postal code, users can explore a
