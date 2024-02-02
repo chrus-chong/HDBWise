@@ -17,8 +17,9 @@ visualisations, enabling users to effortlessly compare different properties. Thi
 richness enhances decision-making and property evaluation.
 ### How to use it
 1. Download and unzip the repository
-2. Open the ```app.R``` file in RStudio.
-3. Run the app.
+2. Retrieve ```hdb_latest.csv``` from [Kaggle](https://www.kaggle.com/datasets/chngyuanlongrandy/hdb-prices-with-closest-mrt-distance) and move the file into ```./HDBWise/data``` (Unable to host on Github due to extremely large file size).
+3. Open the ```app.R``` file in RStudio.
+4. Run the app.
 
 *Note 1: Transaction data is stored in the ```cleanedData.Rdata``` workspace file to ease of usage. To understand the data cleaning operations that were performed, refer to ```./data cleaning/cleanData.R```.*
 
